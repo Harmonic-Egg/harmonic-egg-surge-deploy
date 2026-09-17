@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harmonic Egg Dispatch</title>
+  <meta name="description" content="Short reads on resonance, rest, and recovery.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpolygon points='16,3 29,10 29,22 16,29 3,22 3,10' fill='%237A9B76'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23F2EFE6'/%3E%3C/svg%3E">
+  <link rel="alternate" type="application/rss+xml" title="Harmonic Egg Dispatch" href="https://harmonicegg.surge.sh/feed.xml">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Harmonic Egg Sound & Wellness Digest",
+    "url": "https://harmonicegg.surge.sh/",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Harmonic Egg",
+      "logo": "https://harmonicegg.com/wp-content/uploads/2020/10/HElogo_secondary.png"
+    }
+  }
+  </script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Georgia", "Garamond", serif;
+      line-height: 1.7;
+      color: #33362F;
+      background-color: #F2EFE6;
+    }
+
+    header {
+      background-color: #FFFFFF;
+      border-bottom: 4px solid #7A9B76;
+      padding: 3rem 0;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 400;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.5rem;
+      color: #242720;
+    }
+
+    .site-logo {
+      display: block;
+      height: 60px;
+      width: auto;
+      margin: 0 auto 1.2rem;
+    }
+
+    header p {
+      font-size: 1rem;
+      color: #7C8574;
+      font-style: italic;
+      font-family: "Helvetica", sans-serif;
+      margin-bottom: 1.5rem;
+    }
+
+    .search-box {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      border: 1px solid #DDE3D3;
+      border-radius: 4px;
+      font-family: "Helvetica", sans-serif;
+      font-size: 0.95rem;
+      background-color: #F2EFE6;
+      color: #33362F;
+    }
+
+    .search-box input:focus {
+      outline: none;
+      border-color: #7A9B76;
+    }
+
+    .page-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3rem;
+    }
+
+    .posts-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .post-card {
+      background-color: #ffffff;
+      border: 1px solid #DDE3D3;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      gap: 1.5rem;
+      align-items: stretch;
+      overflow: hidden;
+    }
+
+    .post-thumb {
+      width: 140px;
+      min-width: 140px;
+      height: auto;
+      object-fit: cover;
+      display: block;
+    }
+
+    .post-card-body {
+      padding: 1.5rem 1.5rem 1.5rem 0;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .post-card:has(.post-thumb) .post-card-body {
+      padding-left: 0;
+    }
+
+    .post-card:not(:has(.post-thumb)) .post-card-body {
+      padding-left: 2rem;
+    }
+
+    .post-card:hover {
+      border-color: #7A9B76;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .post-card h2 {
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+      color: #242720;
+    }
+
+    .post-card .meta {
+      font-size: 0.9rem;
+      color: #7C8574;
+      margin-bottom: 1rem;
+      font-style: italic;
+      font-family: "Helvetica", sans-serif;
+    }
+
+    .post-card p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #4A5245;
+    }
+
+    .post-card:hover h2 {
+      color: #7A9B76;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2.5rem;
+      font-family: "Helvetica", sans-serif;
+      font-size: 0.9rem;
+    }
+
+    .pagination a {
+      color: #7A9B76;
+      text-decoration: none;
+    }
+
+    .pagination a:hover {
+      text-decoration: underline;
+    }
+
+    .pagination-disabled {
+      color: #C7D0BC;
+    }
+
+    .pagination-status {
+      color: #7C8574;
+    }
+
+    .page-layout {
+      display: flex;
+      align-items: flex-start;
+      gap: 2.5rem;
+    }
+
+    .page-layout > .main-col {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .sidebar {
+      width: 260px;
+      min-width: 260px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .sidebar-box {
+      background-color: #ffffff;
+      border: 1px solid #DDE3D3;
+      border-radius: 4px;
+      padding: 1.5rem;
+    }
+
+    .sidebar-box h3 {
+      font-size: 1.1rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+      color: #242720;
+      font-family: "Helvetica", sans-serif;
+    }
+
+    .sidebar-list {
+      list-style: none;
+    }
+
+    .sidebar-list li {
+      margin-bottom: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .sidebar-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    .sidebar-list a {
+      color: #33362F;
+      text-decoration: none;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .sidebar-list a:hover {
+      color: #7A9B76;
+    }
+
+    .sidebar-list span {
+      font-size: 0.8rem;
+      color: #A3AE99;
+      font-family: "Helvetica", sans-serif;
+    }
+
+    .sidebar-about {
+      font-size: 0.9rem;
+      color: #4A5245;
+      margin-bottom: 1rem;
+    }
+
+    .quick-facts {
+      list-style: none;
+      margin-bottom: 1rem;
+    }
+
+    .quick-facts li {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid #DDE3D3;
+      font-size: 0.9rem;
+      color: #33362F;
+    }
+
+    .quick-facts li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .quick-facts-label {
+      font-family: "Helvetica", sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #7C8574;
+    }
+
+    .sidebar-link {
+      display: inline-block;
+      font-size: 0.9rem;
+      color: #7A9B76;
+      font-family: "Helvetica", sans-serif;
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background-color: #7A9B76;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 1.2rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .back-to-top:hover {
+      background-color: #5C7A58;
+    }
+
+    @media (max-width: 900px) {
+      .page-layout {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        min-width: 0;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .sidebar-box {
+        flex: 1;
+        min-width: 240px;
+      }
+    }
+
+    .follow-us {
+      max-width: 1100px;
+      margin: 0 auto 2.5rem;
+      padding: 0 1.5rem;
+    }
+
+    .follow-us-icons {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .follow-us-label {
+      font-family: "Helvetica", sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #7C8574;
+      margin-right: 0.25rem;
+    }
+
+    .follow-us-icons a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: #ffffff;
+      border: 1px solid #DDE3D3;
+      transition: border-color 0.2s;
+    }
+
+    .follow-us-icons a:hover {
+      border-color: #7A9B76;
+    }
+
+    .follow-us-icons img {
+      width: 16px;
+      height: 16px;
+    }
+
+    .follow-us-feed {
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid #DDE3D3;
+      height: 480px;
+    }
+
+    .follow-us-feed iframe {
+      width: 100%;
+      height: 540px;
+      margin-top: -30px;
+      border: none;
+      display: block;
+    }
+
+    @media (max-width: 900px) {
+      .follow-us-feed {
+        height: 870px;
+      }
+
+      .follow-us-feed iframe {
+        height: 930px;
+        margin-top: -30px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .follow-us-feed {
+        height: 1020px;
+      }
+
+      .follow-us-feed iframe {
+        height: 1080px;
+        margin-top: -30px;
+      }
+    }
+
+    footer {
+      background-color: #ffffff;
+      border-top: 1px solid #DDE3D3;
+      padding: 2rem 0;
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #7C8574;
+    }
+
+    footer .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    footer a {
+      color: #7A9B76;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: #7C8574;
+    }
+
+    .empty-state p {
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 900px) {
+      .posts-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.6rem;
+      }
+
+      .page-container {
+        padding: 0 1rem 2rem;
+      }
+
+      .post-card {
+        flex-direction: column;
+      }
+
+      .post-thumb {
+        width: 100%;
+        min-width: 0;
+        height: 160px;
+      }
+
+      .post-card-body {
+        padding: 1rem !important;
+      }
+    }
+  </style>
+</head>
+<body id="top">
+  <header>
+    <img class="site-logo" src="https://harmonicegg.com/wp-content/uploads/2020/10/HElogo_secondary.png" alt="Harmonic Egg">
+    <h1>Harmonic Egg Dispatch</h1>
+    <p>Short reads on resonance, rest, and recovery</p>
+    <div class="search-box">
+      <input type="text" id="blog-search" placeholder="Search posts..." autocomplete="off">
+    </div>
+  </header>
+
+      <section class="follow-us">
+        <div class="follow-us-icons">
+          <span class="follow-us-label">Follow Us</span>
+          <a href="https://www.facebook.com/HarmonicEgg/" target="_blank" rel="noopener" aria-label="Facebook"><img src="https://cdn.simpleicons.org/facebook/8B7355" alt="Facebook" loading="lazy"></a>
+          <a href="https://www.instagram.com/harmonicegg/" target="_blank" rel="noopener" aria-label="Instagram"><img src="https://cdn.simpleicons.org/instagram/8B7355" alt="Instagram" loading="lazy"></a>
+          <a href="https://twitter.com/harmonicegg" target="_blank" rel="noopener" aria-label="X"><img src="https://cdn.simpleicons.org/x/8B7355" alt="X" loading="lazy"></a>
+          <a href="https://www.linkedin.com/company/harmonic-egg-official/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="16" height="16" fill="#7A9B76"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.446-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.114 20.452H3.558V9h3.556v11.452z"/></svg></a>
+          <a href="https://www.youtube.com/@gailforce33/featured" target="_blank" rel="noopener" aria-label="YouTube"><img src="https://cdn.simpleicons.org/youtube/8B7355" alt="YouTube" loading="lazy"></a>
+          <a href="https://www.tiktok.com/@harmoniceggofficial" target="_blank" rel="noopener" aria-label="TikTok"><img src="https://cdn.simpleicons.org/tiktok/8B7355" alt="TikTok" loading="lazy"></a>
+          <a href="https://www.threads.com/@harmonicegg" target="_blank" rel="noopener" aria-label="Threads"><img src="https://cdn.simpleicons.org/threads/8B7355" alt="Threads" loading="lazy"></a>
+          <a href="https://www.pinterest.com/harmonicegg/" target="_blank" rel="noopener" aria-label="Pinterest"><img src="https://cdn.simpleicons.org/pinterest/8B7355" alt="Pinterest" loading="lazy"></a>
+        </div>
+      </section>
+
+  <div class="page-container page-layout">
+    <main class="main-col">
+      <div class="posts-grid" id="posts">
+      <a class="post-card" href="/posts/2026-09-17-exploring-the-essence-of-sound-healing.html">
+        
+        <div class="post-card-body">
+          <h2>Exploring the Essence of Sound Healing</h2>
+          <div class="meta">September 17, 2026</div>
+          <p>At Harmonic Egg, I am thrilled to share insights into the transformational potential of sound healing. Through the power of sound, we can tap into our inner...</p>
+        </div>
+      </a>
+      </div>
+
+    </main>
+      <aside class="sidebar">
+        <div class="sidebar-box">
+          <h3>Latest Posts</h3>
+          <ul class="sidebar-list">
+        <li><a href="/posts/2026-09-17-exploring-the-essence-of-sound-healing.html">Exploring the Essence of Sound Healing</a><span>September 17, 2026</span></li>
+          </ul>
+        </div>
+        <div class="sidebar-box">
+          <h3>About This Journal</h3>
+          <p class="sidebar-about">Reflections and updates from the Harmonic Egg&reg; community, shared here alongside the original source.</p>
+          <a class="sidebar-link" href="https://harmonicegg.com">harmonicegg.com</a>
+        </div>
+      </aside>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p><a href="https://harmonicegg.com">Harmonic Egg Official</a> / <a href="/feed.xml">RSS Feed</a></p>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      var searchInput = document.getElementById('blog-search');
+      var postsGrid = document.getElementById('posts');
+      var pagination = document.getElementById('pagination');
+      var originalGridHtml = postsGrid.innerHTML;
+      var originalPaginationDisplay = pagination ? pagination.style.display : null;
+      var allPosts = null;
+
+      function escapeHtmlJs(str) {
+        var div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+      }
+
+      function renderResults(posts) {
+        if (posts.length === 0) {
+          postsGrid.innerHTML = '<div class="empty-state"><p>No posts match your search.</p></div>';
+          return;
+        }
+        postsGrid.innerHTML = posts.map(function(p) {
+          var thumb = p.featuredImage ? '<img class="post-thumb" src="' + p.featuredImage + '" alt="" loading="lazy">' : '';
+          return '<a class="post-card" href="/' + p.filename + '">' + thumb +
+            '<div class="post-card-body"><h2>' + escapeHtmlJs(p.title) + '</h2>' +
+            '<div class="meta">' + p.date + '</div>' +
+            '<p>' + escapeHtmlJs(p.excerpt) + '</p></div></a>';
+        }).join('');
+      }
+
+      searchInput.addEventListener('input', function() {
+        var q = searchInput.value.trim().toLowerCase();
+        if (!q) {
+          postsGrid.innerHTML = originalGridHtml;
+          if (pagination) pagination.style.display = originalPaginationDisplay || '';
+          return;
+        }
+        if (pagination) pagination.style.display = 'none';
+        var loadPromise = allPosts ? Promise.resolve(allPosts) : fetch('/posts.json').then(function(r) { return r.json(); });
+        loadPromise.then(function(posts) {
+          allPosts = posts;
+          var filtered = posts.filter(function(p) {
+            return p.title.toLowerCase().indexOf(q) !== -1 || (p.excerpt || '').toLowerCase().indexOf(q) !== -1;
+          });
+          renderResults(filtered);
+        });
+      });
+    })();
+  </script>
+
+  <a href="#top" class="back-to-top" aria-label="Back to top">&uarr;</a>
+</body>
+</html>

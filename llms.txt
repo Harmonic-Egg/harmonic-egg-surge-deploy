@@ -1,0 +1,11 @@
+# Harmonic Egg Dispatch
+
+> Short reads on resonance, rest, and recovery, published by the Harmonic Egg team. Covers sound and light healing, sacred geometry, the Harmonic Egg® chamber, and related wellness topics.
+
+Primary brand site: https://harmonicegg.com
+RSS feed: https://harmonicegg.surge.sh/feed.xml
+Sitemap: https://harmonicegg.surge.sh/sitemap.xml
+
+## Recent posts
+
+- [Exploring the Essence of Sound Healing](https://harmonicegg.surge.sh/posts/2026-09-17-exploring-the-essence-of-sound-healing.html): At Harmonic Egg, I am thrilled to share insights into the transformational potential of sound healing. Through the power of sound, we can tap into our inner...
