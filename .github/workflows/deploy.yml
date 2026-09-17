@@ -1,0 +1,17 @@
+name: Deploy to Surge
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Surge
+        run: npm install --global surge
+      - name: Publish to Surge
+        env:
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+        run: surge publish . harmonicegg.surge.sh
