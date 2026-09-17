@@ -15,7 +15,16 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install Surge
         run: npm install --global surge
-      - name: Publish to Surge
+      - name: Publish to Surge (with retry on rate limit)
         env:
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
-        run: surge publish . harmonicegg.surge.sh
+        run: |
+          for i in 1 2 3 4 5; do
+            if surge publish . harmonicegg.surge.sh; then
+              exit 0
+            fi
+            echo "Publish failed (attempt $i), waiting 7 minutes before retry..."
+            sleep 420
+          done
+          echo "All retry attempts failed."
+          exit 1
